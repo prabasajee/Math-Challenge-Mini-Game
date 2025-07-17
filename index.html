@@ -5,8 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math Challenge Mini-Game</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+    @media (max-width: 700px) {
+      #customization {
+        position: static !important;
+        min-width: unset !important;
+        width: 96vw !important;
+        max-width: 99vw !important;
+        margin: 12px auto 18px auto !important;
+        display: block !important;
+        border-radius: 24px !important;
+        box-shadow: 0 2px 12px rgba(45,123,229,0.10);
+        padding: 14px 8px !important;
+        text-align: center !important;
+      }
+      #customization label, #customization select, #customization span {
+        display: block !important;
+        margin: 8px auto !important;
+        font-size: 1.1em !important;
+      }
+      #customization select {
+        width: 90vw !important;
+        max-width: 99vw !important;
+        padding: 12px 10px !important;
+        font-size: 1.1em !important;
+      }
+      #avatar-display {
+        font-size: 2.2em !important;
+        margin-left: 0 !important;
+      }
+    }
+    </style>
 </head>
 <body>
+    <!-- Customization controls outside the main container -->
+    <div class="customization" id="customization" style="position:absolute;top:32px;right:32px;z-index:10;background:#fff;border-radius:32px;box-shadow:0 2px 16px rgba(45,123,229,0.10);padding:18px 28px;display:inline-block;text-align:center;min-width:320px;">
+        <label for="theme-select" style="margin-right:8px;font-weight:500;">Theme:</label>
+        <select id="theme-select" style="padding:8px 16px;border-radius:20px;border:1px solid #cfd8dc;margin-right:16px;font-size:1em;">
+            <option value="default">Default</option>
+            <option value="dark">Dark</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+        </select>
+        <label for="avatar-select" style="margin-right:8px;font-weight:500;">Avatar:</label>
+        <select id="avatar-select" style="padding:8px 16px;border-radius:20px;border:1px solid #cfd8dc;font-size:1em;">
+            <option value="😀">😀</option>
+            <option value="😎">😎</option>
+            <option value="🦸">🦸</option>
+            <option value="🐱">🐱</option>
+            <option value="🐼">🐼</option>
+            <option value="👩‍💻">👩‍💻</option>
+        </select>
+        <span id="avatar-display" style="font-size:2em;margin-left:12px;vertical-align:middle;"></span>
+    </div>
     <div class="container">
         <h1>Math Challenge</h1>
         <div id="auth-section">
