@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up - Math Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+    body { background: #f7f7f7; }
+    .auth-container {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 16px rgba(45,123,229,0.10);
+        padding: 36px 32px;
+        max-width: 360px;
+        margin: 48px auto;
+    }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <h2 id="auth-title" style="text-align:center; color:#2d7be5; font-size:1.4em; margin-bottom:18px; font-weight:600; letter-spacing:1px;">🔑 Login</h2>
+        <input type="text" id="auth-username" placeholder="Username" style="width:100%;padding:12px;margin-bottom:14px;border-radius:8px;border:1px solid #cfd8dc;font-size:1em;" />
+        <input type="password" id="auth-password" placeholder="Password" style="width:100%;padding:12px;margin-bottom:14px;border-radius:8px;border:1px solid #cfd8dc;font-size:1em;" />
+        <button id="auth-action" onclick="authAction()" style="width:100%;padding:12px;background:linear-gradient(90deg,#2d7be5 60%,#4fc3f7 100%);color:#fff;border:none;border-radius:8px;font-size:1.1em;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(45,123,229,0.08);transition:background 0.2s;">Login</button>
+        <div id="auth-feedback" style="text-align:center;margin-top:12px;color:#e52d2d;font-size:1em;"></div>
+        <div style="text-align:center;margin-top:18px;">
+            <span id="toggle-auth" style="color:#2d7be5;cursor:pointer;text-decoration:underline;font-size:1em;" onclick="toggleAuthMode()">Don't have an account? Sign Up</span>
+        </div>
+    </div>
+    <script src="login.js"></script>
+    <script>
+    // Redirect to game after login
+    function showGameSection() {
+        window.location.href = 'index.html';
+    }
+    </script>
+</body>
+</html>
