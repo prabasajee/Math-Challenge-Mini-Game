@@ -1,3 +1,42 @@
+// Theme and avatar customization logic
+function applyTheme(theme) {
+    const body = document.body;
+    switch (theme) {
+        case 'dark':
+            body.style.background = '#222';
+            body.style.color = '#eee';
+            break;
+        case 'blue':
+            body.style.background = 'linear-gradient(135deg,#e3f2fd 0%,#90caf9 100%)';
+            body.style.color = '#1a237e';
+            break;
+        case 'green':
+            body.style.background = 'linear-gradient(135deg,#e8f5e9 0%,#66bb6a 100%)';
+            body.style.color = '#1b5e20';
+            break;
+        default:
+            body.style.background = 'linear-gradient(135deg,#e7f0fd 0%,#f7f7f7 100%)';
+            body.style.color = '';
+    }
+}
+function applyAvatar(avatar) {
+    document.getElementById('avatar-display').textContent = avatar;
+}
+document.getElementById('theme-select').addEventListener('change', function() {
+    applyTheme(this.value);
+    localStorage.setItem('mc_theme', this.value);
+});
+document.getElementById('avatar-select').addEventListener('change', function() {
+    applyAvatar(this.value);
+    localStorage.setItem('mc_avatar', this.value);
+});
+    // Load theme and avatar from localStorage
+    const theme = localStorage.getItem('mc_theme') || 'default';
+    const avatar = localStorage.getItem('mc_avatar') || '😀';
+    document.getElementById('theme-select').value = theme;
+    document.getElementById('avatar-select').value = avatar;
+    applyTheme(theme);
+    applyAvatar(avatar);
 // Daily challenge logic
 function getTodayKey() {
     const today = new Date();
