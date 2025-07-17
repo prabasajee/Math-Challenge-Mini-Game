@@ -3,104 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Challenge Mini-Game</title>
+    <title>Login / Sign Up - Math Challenge</title>
     <link rel="stylesheet" href="style.css">
     <style>
-    @media (max-width: 700px) {
-      #customization {
-        position: static !important;
-        min-width: unset !important;
-        width: 96vw !important;
-        max-width: 99vw !important;
-        margin: 12px auto 18px auto !important;
-        display: block !important;
-        border-radius: 24px !important;
-        box-shadow: 0 2px 12px rgba(45,123,229,0.10);
-        padding: 14px 8px !important;
-        text-align: center !important;
-      }
-      #customization label, #customization select, #customization span {
-        display: block !important;
-        margin: 8px auto !important;
-        font-size: 1.1em !important;
-      }
-      #customization select {
-        width: 90vw !important;
-        max-width: 99vw !important;
-        padding: 12px 10px !important;
-        font-size: 1.1em !important;
-      }
-      #avatar-display {
-        font-size: 2.2em !important;
-        margin-left: 0 !important;
-      }
+    body {
+        min-height: 100vh;
+        background: linear-gradient(120deg, #e7f0fd 0%, #cfd8dc 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .auth-container {
+        background: rgba(255,255,255,0.85);
+        border-radius: 24px;
+        box-shadow: 0 8px 32px rgba(45,123,229,0.18);
+        padding: 40px 32px 32px 32px;
+        max-width: 370px;
+        margin: 0 auto;
+        backdrop-filter: blur(8px);
+        position: relative;
+    }
+    .auth-logo {
+        display: block;
+        margin: 0 auto 12px auto;
+        font-size: 2.8em;
+        text-align: center;
+        filter: drop-shadow(0 2px 8px #2d7be5);
+        animation: bounceLogo 1.2s infinite alternate;
+    }
+    @keyframes bounceLogo {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-10px) scale(1.08); }
+    }
+    #auth-title {
+        text-align:center;
+        color:#2d7be5;
+        font-size:1.5em;
+        margin-bottom:10px;
+        font-weight:700;
+        letter-spacing:1px;
+    }
+    #auth-action {
+        width:100%;
+        padding:14px;
+        background:linear-gradient(90deg,#2d7be5 60%,#4fc3f7 100%);
+        color:#fff;
+        border:none;
+        border-radius:12px;
+        font-size:1.1em;
+        font-weight:600;
+        cursor:pointer;
+        box-shadow:0 2px 8px rgba(45,123,229,0.10);
+        transition:background 0.2s, transform 0.2s;
+        margin-top:8px;
+        position:relative;
+        overflow:hidden;
+    }
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        transform: scale(0);
+        animation: rippleEffect 0.5s linear;
+        background: rgba(79,195,247,0.3);
+        pointer-events: none;
+    }
+    @keyframes rippleEffect {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+    #auth-action:hover {
+        background:linear-gradient(90deg,#4fc3f7 60%,#2d7be5 100%);
+        transform: translateY(-2px) scale(1.03);
+    }
+    #auth-username, #auth-password {
+        width:100%;
+        padding:13px;
+        margin-bottom:14px;
+        border-radius:10px;
+        border:1px solid #cfd8dc;
+        font-size:1em;
+        background:rgba(255,255,255,0.95);
+        transition:border 0.2s;
+    }
+    #auth-username:focus, #auth-password:focus {
+        border:1.5px solid #2d7be5;
+        outline:none;
+        box-shadow: 0 0 0 4px rgba(45,123,229,0.15);
+    }
+    #auth-feedback {
+        text-align:center;
+        margin-top:12px;
+        color:#e52d2d;
+        font-size:1em;
+        min-height:1.2em;
+    }
+    #toggle-auth {
+        color:#2d7be5;
+        cursor:pointer;
+        text-decoration:underline;
+        font-size:1em;
+        font-weight:500;
+        margin-top:10px;
+        display:inline-block;
+    }
+    @media (max-width: 500px) {
+        .auth-container {
+            padding: 24px 8px 18px 8px;
+            max-width: 98vw;
+        }
+        #auth-title { font-size:1.2em; }
+        .auth-logo { font-size:2em; }
     }
     </style>
 </head>
 <body>
-    <!-- Customization controls outside the main container -->
-    <div class="customization" id="customization" style="position:absolute;top:32px;right:32px;z-index:10;background:#fff;border-radius:32px;box-shadow:0 2px 16px rgba(45,123,229,0.10);padding:18px 28px;display:inline-block;text-align:center;min-width:320px;">
-        <label for="theme-select" style="margin-right:8px;font-weight:500;">Theme:</label>
-        <select id="theme-select" style="padding:8px 16px;border-radius:20px;border:1px solid #cfd8dc;margin-right:16px;font-size:1em;">
-            <option value="default">Default</option>
-            <option value="dark">Dark</option>
-            <option value="blue">Blue</option>
-            <option value="green">Green</option>
-        </select>
-        <label for="avatar-select" style="margin-right:8px;font-weight:500;">Avatar:</label>
-        <select id="avatar-select" style="padding:8px 16px;border-radius:20px;border:1px solid #cfd8dc;font-size:1em;">
-            <option value="😀">😀</option>
-            <option value="😎">😎</option>
-            <option value="🦸">🦸</option>
-            <option value="🐱">🐱</option>
-            <option value="🐼">🐼</option>
-            <option value="👩‍💻">👩‍💻</option>
-        </select>
-        <span id="avatar-display" style="font-size:2em;margin-left:12px;vertical-align:middle;"></span>
-    </div>
-    <div class="container">
-        <h1>Math Challenge</h1>
-        <div id="auth-section">
-            <div id="auth-form" style="background: #f7f7f7; border-radius: 12px; box-shadow: 0 2px 12px rgba(45,123,229,0.08); padding: 32px 28px; max-width: 340px; margin: 0 auto;">
-                <h2 id="auth-title" style="text-align:center; color:#2d7be5; font-size:1.4em; margin-bottom:18px; font-weight:600; letter-spacing:1px;">🔑 Login</h2>
-                <input type="text" id="auth-username" placeholder="Username" style="width:100%;padding:12px;margin-bottom:14px;border-radius:8px;border:1px solid #cfd8dc;font-size:1em;" />
-                <input type="password" id="auth-password" placeholder="Password" style="width:100%;padding:12px;margin-bottom:14px;border-radius:8px;border:1px solid #cfd8dc;font-size:1em;" />
-                <button id="auth-action" onclick="authAction()" style="width:100%;padding:12px;background:linear-gradient(90deg,#2d7be5 60%,#4fc3f7 100%);color:#fff;border:none;border-radius:8px;font-size:1.1em;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(45,123,229,0.08);transition:background 0.2s;">Login</button>
-                <div id="auth-feedback" style="text-align:center;margin-top:12px;color:#e52d2d;font-size:1em;"></div>
-                <div style="text-align:center;margin-top:18px;">
-                    <span id="toggle-auth" style="color:#2d7be5;cursor:pointer;text-decoration:underline;font-size:1em;" onclick="toggleAuthMode()">Don't have an account? Sign Up</span>
-                </div>
-            </div>
-        </div>
-        <div id="game-section" style="display:none;">
-            <div class="daily-challenge" id="daily-challenge" style="background:#e7f0fd;border-radius:8px;padding:12px 16px;margin-bottom:16px;text-align:center;display:none;"></div>
-            <div class="level" id="level">Level: 1</div>
-            <div class="timer" id="timer">Time left: 10s</div>
-            <div class="badges" id="badges" style="text-align:center;margin:12px 0 8px 0;"></div>
-            <div class="question" id="question">Loading...</div>
-            <select id="type-select">
-                <option value="addition">Addition</option>
-                <option value="subtraction">Subtraction</option>
-                <option value="multiplication">Multiplication</option>
-                <option value="division">Division</option>
-                <option value="power">Power</option>
-                <option value="fraction">Fraction</option>
-            </select>
-            <input type="number" id="answer" placeholder="Your answer" />
-            <button onclick="submitAnswer()">Submit</button>
-            <div class="feedback" id="feedback"></div>
-            <div class="score" id="score">Score: 0</div>
-            <div class="highscore" id="highscore">High Score: 0</div>
-            <div class="leaderboard">
-                <h2>Leaderboard</h2>
-                <ul id="leaderboard-list"></ul>
-            </div>
-            <div style="text-align:right;margin-top:12px;">
-                <button onclick="logoutUser()" style="background:#e52d2d;">Logout</button>
-            </div>
+    <div class="auth-container">
+        <span class="auth-logo">🧮</span>
+        <h2 id="auth-title">🔑 Login</h2>
+        <input type="text" id="auth-username" placeholder="Username" />
+        <input type="password" id="auth-password" placeholder="Password" />
+        <button id="auth-action" onclick="authAction(event)">Login</button>
+        <div id="auth-feedback"></div>
+        <div style="text-align:center;margin-top:18px;">
+            <span id="toggle-auth" onclick="toggleAuthMode()">Don't have an account? Sign Up</span>
         </div>
     </div>
     <script src="login.js"></script>
-    <script src="script.js"></script>
+    <script>
+    // Redirect to game after login
+    function showGameSection() {
+        window.location.href = 'home.html';
+    }
+    // Button ripple effect
+    document.getElementById('auth-action').addEventListener('click', function(e) {
+        const btn = e.currentTarget;
+        const ripple = document.createElement('span');
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        ripple.className = 'ripple';
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+        btn.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+    });
+    </script>
 </body>
 </html>
