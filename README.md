@@ -25,6 +25,7 @@ Math Challenge Mini-Game was created to make learning and practicing math fun fo
 ![Gameplay Demo](assets/gameplay-demo.gif)
 
 ## 📺 Video Demo
+![Demo Thumbnail](https://img.youtube.com/vi/7548wg84A6c/maxresdefault.jpg)
 [Watch the demo on YouTube](https://youtu.be/7548wg84A6c)
 
 ## 🛠️ Technologies Used
