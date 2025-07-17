@@ -1,0 +1,13 @@
+body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 0; }
+.container { max-width: 400px; margin: 40px auto; background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+h1 { text-align: center; color: #2d7be5; }
+.question { font-size: 1.3em; margin: 20px 0; text-align: center; }
+input[type="number"], select { width: 100%; padding: 8px; font-size: 1em; margin-bottom: 12px; }
+button { width: 100%; padding: 10px; background: #2d7be5; color: #fff; border: none; border-radius: 4px; font-size: 1em; cursor: pointer; }
+.score, .highscore, .level { text-align: center; margin-top: 16px; font-weight: bold; }
+.feedback { text-align: center; margin-top: 8px; font-size: 1em; }
+.timer { text-align: center; font-size: 1.1em; margin-top: 8px; color: #e52d2d; }
+.leaderboard { margin-top: 24px; }
+.leaderboard h2 { text-align: center; color: #2d7be5; }
+.leaderboard ul { list-style: none; padding: 0; }
+.leaderboard li { background: #e7f0fd; margin: 4px 0; padding: 6px 12px; border-radius: 4px; text-align: center; }
