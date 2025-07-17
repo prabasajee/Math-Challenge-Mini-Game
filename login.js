@@ -1,12 +1,4 @@
-// login.js - handles login and signup logic
-function loginUser() {
-    const username = document.getElementById('login-username').value.trim();
-    const password = document.getElementById('login-password').value;
-    const feedback = document.getElementById('login-feedback');
-    if (!username || !password) {
-        feedback.textContent = 'Please enter username and password.';
-        return;
-
+// login.js - unified login/signup logic with toggle
 // login.js - unified login/signup logic with toggle
 let authMode = 'login';
 function toggleAuthMode() {
