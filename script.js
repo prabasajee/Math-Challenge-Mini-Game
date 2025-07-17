@@ -24,10 +24,16 @@ function playSound(correct) {
 }
 
 function updateLeaderboard() {
-    leaderboard.push(score);
-    leaderboard.sort((a, b) => b - a);
-    leaderboard = leaderboard.slice(0, 5);
-    leaderboardEl.innerHTML = leaderboard.map((s, i) => `<li>#${i+1}: ${s}</li>`).join('');
+    // Global leaderboard: get top 5 scores from all users
+    let users = JSON.parse(localStorage.getItem('mc_users') || '{}');
+    let scores = Object.entries(users).map(([user, data]) => ({ user, score: data.highScore || 0 }));
+    scores.sort((a, b) => b.score - a.score);
+    let topScores = scores.slice(0, 5);
+    leaderboardEl.innerHTML = topScores.map((entry, i) => {
+        let trophy = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '';
+        let highlight = i === 0 ? 'style="background:#ffe082;color:#1a2a3a;font-weight:700;"' : '';
+        return `<li ${highlight}>${trophy} #${i+1}: <strong>${entry.user}</strong> - ${entry.score}</li>`;
+    }).join('');
 }
 
 function generateQuestion() {
