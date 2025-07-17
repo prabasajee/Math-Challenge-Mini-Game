@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Challenge Mini-Game</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 0; }
+        .container { max-width: 400px; margin: 40px auto; background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2d7be5; }
+        .question { font-size: 1.3em; margin: 20px 0; text-align: center; }
+        input[type="number"] { width: 100%; padding: 8px; font-size: 1em; margin-bottom: 12px; }
+        button { width: 100%; padding: 10px; background: #2d7be5; color: #fff; border: none; border-radius: 4px; font-size: 1em; cursor: pointer; }
+        .score { text-align: center; margin-top: 16px; font-weight: bold; }
+        .feedback { text-align: center; margin-top: 8px; font-size: 1em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Math Challenge</h1>
+        <div class="question" id="question">Loading...</div>
+        <input type="number" id="answer" placeholder="Your answer" />
+        <button onclick="submitAnswer()">Submit</button>
+        <div class="feedback" id="feedback"></div>
+        <div class="score" id="score">Score: 0</div>
+    </div>
+    <script>
+        let score = 0;
+        let currentAnswer = 0;
+        let difficulty = 1;
+
+        function generateQuestion() {
+            // Increase difficulty as score increases
+            if (score >= 10) difficulty = 2;
+            if (score >= 20) difficulty = 3;
+            let a, b, op, questionText;
+            switch (difficulty) {
+                case 1:
+                    a = Math.floor(Math.random() * 10) + 1;
+                    b = Math.floor(Math.random() * 10) + 1;
+                    op = Math.random() < 0.5 ? '+' : '-';
+                    currentAnswer = op === '+' ? a + b : a - b;
+                    questionText = `${a} ${op} ${b}`;
+                    break;
+                case 2:
+                    a = Math.floor(Math.random() * 20) + 1;
+                    b = Math.floor(Math.random() * 10) + 1;
+                    op = Math.random() < 0.5 ? '×' : '÷';
+                    if (op === '×') {
+                        currentAnswer = a * b;
+                        questionText = `${a} × ${b}`;
+                    } else {
+                        currentAnswer = a;
+                        questionText = `${a * b} ÷ ${b}`;
+                    }
+                    break;
+                case 3:
+                    a = Math.floor(Math.random() * 50) + 10;
+                    b = Math.floor(Math.random() * 20) + 2;
+                    op = Math.random() < 0.5 ? '+' : '×';
+                    currentAnswer = op === '+' ? a + b : a * b;
+                    questionText = `${a} ${op} ${b}`;
+                    break;
+            }
+            document.getElementById('question').textContent = questionText;
+            document.getElementById('answer').value = '';
+            document.getElementById('feedback').textContent = '';
+        }
+
+        function submitAnswer() {
+            const userAnswer = Number(document.getElementById('answer').value);
+            if (userAnswer === currentAnswer) {
+                score++;
+                document.getElementById('feedback').textContent = 'Correct!';
+            } else {
+                document.getElementById('feedback').textContent = `Wrong! The answer was ${currentAnswer}.`;
+                score = Math.max(0, score - 1);
+            }
+            document.getElementById('score').textContent = `Score: ${score}`;
+            setTimeout(generateQuestion, 1000);
+        }
+
+        // Start the game
+        generateQuestion();
+    </script>
+</body>
+</html>
