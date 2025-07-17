@@ -17,9 +17,18 @@ Math Challenge Mini-Game was created to make learning and practicing math fun fo
 - Customization: themes and avatars
 - Mobile-friendly, responsive design
 
+## 🆕 Improvements During Hackathon
+- Added user authentication (login/signup)
+- Implemented adaptive difficulty and levels
+- Created a global leaderboard and achievements system
+- Added daily challenge mode and badges
+- Designed a modern, mobile-friendly UI with customization (themes, avatars)
+- Integrated sound effects, animations, and micro-interactions
+- Enhanced documentation, demo visuals, and video walkthrough
+
 ## 📸 Demo 
-![Game Screen](assets/login.jpg)
-![Game Screen](assets/game-screen.png)
+![Login Page](assets/login.jpg)
+![Home Page](assets/game-screen.png)
 ![Customization](assets/customization.png)
 
 
