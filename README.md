@@ -20,7 +20,6 @@ Math Challenge Mini-Game was created to make learning and practicing math fun fo
 ## 📸 Demo 
 ![Game Screen](assets/login.jpg)
 ![Game Screen](assets/game-screen.png)
-![Leaderboard](assets/leaderboard.png)
 ![Customization](assets/customization.png)
 *Or add a GIF:*
 ![Gameplay Demo](assets/gameplay-demo.gif)
