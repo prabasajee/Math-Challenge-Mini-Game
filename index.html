@@ -9,27 +9,45 @@
 <body>
     <div class="container">
         <h1>Math Challenge</h1>
-        <div class="level" id="level">Level: 1</div>
-        <div class="timer" id="timer">Time left: 10s</div>
-        <div class="question" id="question">Loading...</div>
-        <select id="type-select">
-            <option value="addition">Addition</option>
-            <option value="subtraction">Subtraction</option>
-            <option value="multiplication">Multiplication</option>
-            <option value="division">Division</option>
-            <option value="power">Power</option>
-            <option value="fraction">Fraction</option>
-        </select>
-        <input type="number" id="answer" placeholder="Your answer" />
-        <button onclick="submitAnswer()">Submit</button>
-        <div class="feedback" id="feedback"></div>
-        <div class="score" id="score">Score: 0</div>
-        <div class="highscore" id="highscore">High Score: 0</div>
-        <div class="leaderboard">
-            <h2>Leaderboard</h2>
-            <ul id="leaderboard-list"></ul>
+        <div id="auth-section">
+            <div id="auth-form" style="background: #f7f7f7; border-radius: 12px; box-shadow: 0 2px 12px rgba(45,123,229,0.08); padding: 32px 28px; max-width: 340px; margin: 0 auto;">
+                <h2 id="auth-title" style="text-align:center; color:#2d7be5; font-size:1.4em; margin-bottom:18px; font-weight:600; letter-spacing:1px;">🔑 Login</h2>
+                <input type="text" id="auth-username" placeholder="Username" style="width:100%;padding:12px;margin-bottom:14px;border-radius:8px;border:1px solid #cfd8dc;font-size:1em;" />
+                <input type="password" id="auth-password" placeholder="Password" style="width:100%;padding:12px;margin-bottom:14px;border-radius:8px;border:1px solid #cfd8dc;font-size:1em;" />
+                <button id="auth-action" onclick="authAction()" style="width:100%;padding:12px;background:linear-gradient(90deg,#2d7be5 60%,#4fc3f7 100%);color:#fff;border:none;border-radius:8px;font-size:1.1em;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(45,123,229,0.08);transition:background 0.2s;">Login</button>
+                <div id="auth-feedback" style="text-align:center;margin-top:12px;color:#e52d2d;font-size:1em;"></div>
+                <div style="text-align:center;margin-top:18px;">
+                    <span id="toggle-auth" style="color:#2d7be5;cursor:pointer;text-decoration:underline;font-size:1em;" onclick="toggleAuthMode()">Don't have an account? Sign Up</span>
+                </div>
+            </div>
+        </div>
+        <div id="game-section" style="display:none;">
+            <div class="level" id="level">Level: 1</div>
+            <div class="timer" id="timer">Time left: 10s</div>
+            <div class="question" id="question">Loading...</div>
+            <select id="type-select">
+                <option value="addition">Addition</option>
+                <option value="subtraction">Subtraction</option>
+                <option value="multiplication">Multiplication</option>
+                <option value="division">Division</option>
+                <option value="power">Power</option>
+                <option value="fraction">Fraction</option>
+            </select>
+            <input type="number" id="answer" placeholder="Your answer" />
+            <button onclick="submitAnswer()">Submit</button>
+            <div class="feedback" id="feedback"></div>
+            <div class="score" id="score">Score: 0</div>
+            <div class="highscore" id="highscore">High Score: 0</div>
+            <div class="leaderboard">
+                <h2>Leaderboard</h2>
+                <ul id="leaderboard-list"></ul>
+            </div>
+            <div style="text-align:right;margin-top:12px;">
+                <button onclick="logoutUser()" style="background:#e52d2d;">Logout</button>
+            </div>
         </div>
     </div>
+    <script src="login.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
