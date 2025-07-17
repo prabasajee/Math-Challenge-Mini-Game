@@ -1,4 +1,3 @@
-
 # Math Challenge Mini-Game
 
 A joyful, modern web app for practicing math skills, built for the GitHub Hackathon 2025!
@@ -19,8 +18,11 @@ Math Challenge Mini-Game was created to make learning and practicing math fun fo
 - Mobile-friendly, responsive design
 
 ## 📸 Demo
-![Demo Screenshot](assets/demo-screenshot.png)
-*Add a GIF or screenshot of your app here!*
+![Game Screen](assets/game-screen.png)
+![Leaderboard](assets/leaderboard.png)
+![Customization](assets/team change.jpg)
+*Or add a GIF:*
+![Gameplay Demo](assets/gameplay-demo.gif)
 
 ## 🛠️ Technologies Used
 - HTML5
