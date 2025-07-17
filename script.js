@@ -1,3 +1,4 @@
+
 let score = 0;
 let highScore = 0;
 let level = 1;
@@ -107,6 +108,13 @@ function submitAnswer() {
         if (score > highScore) {
             highScore = score;
             highScoreEl.textContent = `High Score: ${highScore}`;
+            // Save high score for user
+            let users = JSON.parse(localStorage.getItem('mc_users') || '{}');
+            let username = localStorage.getItem('mc_currentUser');
+            if (users[username]) {
+                users[username].highScore = highScore;
+                localStorage.setItem('mc_users', JSON.stringify(users));
+            }
         }
         if (score % 10 === 0) {
             level++;
@@ -121,15 +129,7 @@ function submitAnswer() {
     updateLeaderboard();
     setTimeout(generateQuestion, 1500);
 }
-
 typeSelect.addEventListener('change', function() {
     currentType = this.value;
     generateQuestion();
 });
-
-// Start the game
-window.onload = function() {
-    highScoreEl.textContent = `High Score: ${highScore}`;
-    levelEl.textContent = `Level: ${level}`;
-    generateQuestion();
-};
