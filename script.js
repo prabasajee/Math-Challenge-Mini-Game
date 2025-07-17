@@ -1,3 +1,14 @@
+// Achievements/badges logic
+let streak = 0;
+function updateBadges() {
+    let badges = [];
+    if (score >= 10) badges.push('🏅 10 Points');
+    if (score >= 25) badges.push('🎖️ 25 Points');
+    if (score >= 50) badges.push('🥇 50 Points');
+    if (streak >= 5) badges.push('🔥 5 Correct Streak');
+    if (streak >= 10) badges.push('⚡ 10 Correct Streak');
+    document.getElementById('badges').innerHTML = badges.length ? badges.join(' &nbsp; ') : '<span style="color:#aaa;">No badges yet</span>';
+}
 
 let score = 0;
 let highScore = 0;
@@ -109,6 +120,7 @@ function submitAnswer() {
     clearInterval(timer);
     if (userAnswer == currentAnswer) {
         score++;
+        streak++;
         feedbackEl.textContent = 'Correct!';
         playSound(true);
         if (score > highScore) {
@@ -130,12 +142,16 @@ function submitAnswer() {
         feedbackEl.textContent = `Wrong! The answer was ${currentAnswer}.`;
         playSound(false);
         score = Math.max(0, score - 1);
+        streak = 0;
     }
     scoreEl.textContent = `Score: ${score}`;
     updateLeaderboard();
+    updateBadges();
     setTimeout(generateQuestion, 1500);
 }
 typeSelect.addEventListener('change', function() {
     currentType = this.value;
+    streak = 0;
+    updateBadges();
     generateQuestion();
 });
