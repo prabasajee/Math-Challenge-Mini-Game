@@ -1,3 +1,14 @@
+// Achievements/badges logic
+let streak = 0;
+function updateBadges() {
+    let badges = [];
+    if (score >= 10) badges.push('🏅 10 Points');
+    if (score >= 25) badges.push('🎖️ 25 Points');
+    if (score >= 50) badges.push('🥇 50 Points');
+    if (streak >= 5) badges.push('🔥 5 Correct Streak');
+    if (streak >= 10) badges.push('⚡ 10 Correct Streak');
+    document.getElementById('badges').innerHTML = badges.length ? badges.join(' &nbsp; ') : '<span style="color:#aaa;">No badges yet</span>';
+}
 
 let score = 0;
 let highScore = 0;
@@ -24,10 +35,16 @@ function playSound(correct) {
 }
 
 function updateLeaderboard() {
-    leaderboard.push(score);
-    leaderboard.sort((a, b) => b - a);
-    leaderboard = leaderboard.slice(0, 5);
-    leaderboardEl.innerHTML = leaderboard.map((s, i) => `<li>#${i+1}: ${s}</li>`).join('');
+    // Global leaderboard: get top 5 scores from all users
+    let users = JSON.parse(localStorage.getItem('mc_users') || '{}');
+    let scores = Object.entries(users).map(([user, data]) => ({ user, score: data.highScore || 0 }));
+    scores.sort((a, b) => b.score - a.score);
+    let topScores = scores.slice(0, 5);
+    leaderboardEl.innerHTML = topScores.map((entry, i) => {
+        let trophy = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '';
+        let highlight = i === 0 ? 'style="background:#ffe082;color:#1a2a3a;font-weight:700;"' : '';
+        return `<li ${highlight}>${trophy} #${i+1}: <strong>${entry.user}</strong> - ${entry.score}</li>`;
+    }).join('');
 }
 
 function generateQuestion() {
@@ -103,6 +120,7 @@ function submitAnswer() {
     clearInterval(timer);
     if (userAnswer == currentAnswer) {
         score++;
+        streak++;
         feedbackEl.textContent = 'Correct!';
         playSound(true);
         if (score > highScore) {
@@ -124,12 +142,16 @@ function submitAnswer() {
         feedbackEl.textContent = `Wrong! The answer was ${currentAnswer}.`;
         playSound(false);
         score = Math.max(0, score - 1);
+        streak = 0;
     }
     scoreEl.textContent = `Score: ${score}`;
     updateLeaderboard();
+    updateBadges();
     setTimeout(generateQuestion, 1500);
 }
 typeSelect.addEventListener('change', function() {
     currentType = this.value;
+    streak = 0;
+    updateBadges();
     generateQuestion();
 });
