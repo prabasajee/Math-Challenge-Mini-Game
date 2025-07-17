@@ -1,3 +1,44 @@
+// Daily challenge logic
+function getTodayKey() {
+    const today = new Date();
+    return `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
+}
+function generateDailyChallenge() {
+    // Simple: always addition, numbers based on date
+    const today = new Date();
+    const a = today.getDate() + 10;
+    const b = today.getMonth() + 5;
+    const answer = a + b;
+    return { question: `Daily Challenge: ${a} + ${b} = ?`, answer };
+}
+function showDailyChallenge() {
+    const key = getTodayKey();
+    const completed = localStorage.getItem('mc_daily_' + key);
+    const challenge = generateDailyChallenge();
+    const el = document.getElementById('daily-challenge');
+    if (completed) {
+        el.innerHTML = `<strong>✅ Daily Challenge Complete!</strong> <span style='color:#2d7be5;'>🏆</span>`;
+        el.style.display = '';
+    } else {
+        el.innerHTML = `<strong>${challenge.question}</strong><br><input type='number' id='daily-answer' style='margin:8px 0;padding:6px;border-radius:6px;border:1px solid #cfd8dc;width:80px;text-align:center;' placeholder='Answer' /> <button onclick='submitDailyChallenge()' style='padding:6px 16px;background:#2d7be5;color:#fff;border:none;border-radius:6px;cursor:pointer;'>Submit</button> <span id='daily-feedback' style='margin-left:8px;color:#e52d2d;'></span>`;
+        el.style.display = '';
+    }
+}
+function submitDailyChallenge() {
+    const key = getTodayKey();
+    const challenge = generateDailyChallenge();
+    const userAnswer = Number(document.getElementById('daily-answer').value);
+    const feedback = document.getElementById('daily-feedback');
+    if (userAnswer === challenge.answer) {
+        localStorage.setItem('mc_daily_' + key, 'done');
+        feedback.textContent = 'Correct!';
+        setTimeout(() => showDailyChallenge(), 1000);
+        // Add badge
+        document.getElementById('badges').innerHTML += ' <span title="Daily Challenge">🏆</span>';
+    } else {
+        feedback.textContent = 'Try again!';
+    }
+}
 // Achievements/badges logic
 let streak = 0;
 function updateBadges() {
@@ -154,4 +195,5 @@ typeSelect.addEventListener('change', function() {
     streak = 0;
     updateBadges();
     generateQuestion();
+    showDailyChallenge();
 });
