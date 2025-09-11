@@ -170,7 +170,19 @@ function generateQuestion() {
     questionEl.textContent = questionText;
     answerEl.value = '';
     feedbackEl.textContent = '';
-    timeLeft = 10;
+    
+    // Smart Timer - Harder questions get more time
+    const baseTime = 8;
+    const levelBonus = Math.min(level * 2, 12); // Cap at 20s total
+    const typeBonus = {
+        'addition': 0,
+        'subtraction': 1,
+        'multiplication': 2,
+        'division': 3,
+        'power': 4,
+        'fraction': 5
+    };
+    timeLeft = baseTime + levelBonus + (typeBonus[currentType] || 0);
     timerEl.textContent = `Time left: ${timeLeft}s`;
     clearInterval(timer);
     timer = setInterval(updateTimer, 1000);
