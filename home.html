@@ -76,6 +76,23 @@
         <div id="game-section" style="display:none;">
             <div class="daily-challenge" id="daily-challenge" style="background:#e7f0fd;border-radius:8px;padding:12px 16px;margin-bottom:16px;text-align:center;display:none;"></div>
             <div class="level" id="level">Level: 1</div>
+            
+            <!-- Progress Bars -->
+            <div class="progress-container" style="margin:12px 0;background:rgba(255,255,255,0.7);padding:12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+                <div style="margin-bottom:8px;">
+                    <span style="font-size:0.9em;color:#666;">Level Progress:</span>
+                    <div class="progress-bar" style="background:#e0e0e0;border-radius:10px;height:6px;margin:4px 0;">
+                        <div id="level-progress" style="background:linear-gradient(90deg,#2d7be5,#4fc3f7);height:100%;border-radius:10px;width:0%;transition:width 0.5s;"></div>
+                    </div>
+                </div>
+                <div>
+                    <span style="font-size:0.9em;color:#666;">Streak: <span id="streak-count">0</span></span>
+                    <div class="progress-bar" style="background:#e0e0e0;border-radius:10px;height:6px;margin:4px 0;">
+                        <div id="streak-progress" style="background:linear-gradient(90deg,#ff6b6b,#ffa500);height:100%;border-radius:10px;width:0%;transition:width 0.5s;"></div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="timer" id="timer">Time left: 10s</div>
             <div class="badges" id="badges" style="text-align:center;margin:12px 0 8px 0;"></div>
             <div class="question" id="question">Loading...</div>
@@ -87,8 +104,8 @@
                 <option value="power">Power</option>
                 <option value="fraction">Fraction</option>
             </select>
-            <input type="number" id="answer" placeholder="Your answer" />
-            <button onclick="submitAnswer()">Submit</button>
+            <input type="number" id="answer" placeholder="Your answer" onkeypress="handleKeyPress(event)" />
+            <button onclick="submitAnswer()" id="submit-btn">Submit</button>
             <div class="feedback" id="feedback"></div>
             <div class="score" id="score">Score: 0</div>
             <div class="highscore" id="highscore">High Score: 0</div>

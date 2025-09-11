@@ -88,6 +88,20 @@ function updateBadges() {
     if (streak >= 5) badges.push('🔥 5 Correct Streak');
     if (streak >= 10) badges.push('⚡ 10 Correct Streak');
     document.getElementById('badges').innerHTML = badges.length ? badges.join(' &nbsp; ') : '<span style="color:#aaa;">No badges yet</span>';
+    
+    // Update progress bars
+    updateProgressBars();
+}
+
+function updateProgressBars() {
+    // Level progress (0-10 questions per level)
+    const levelProgress = (score % 10) * 10; // 0-100%
+    document.getElementById('level-progress').style.width = levelProgress + '%';
+    
+    // Streak progress (cap at 15 for visual purposes)
+    const streakProgress = Math.min(streak / 15 * 100, 100);
+    document.getElementById('streak-progress').style.width = streakProgress + '%';
+    document.getElementById('streak-count').textContent = streak;
 }
 
 let score = 0;
@@ -186,6 +200,11 @@ function generateQuestion() {
     timerEl.textContent = `Time left: ${timeLeft}s`;
     clearInterval(timer);
     timer = setInterval(updateTimer, 1000);
+    
+    // Auto-focus answer input for better UX
+    setTimeout(() => {
+        document.getElementById('answer').focus();
+    }, 100);
 }
 
 function updateTimer() {
@@ -193,13 +212,36 @@ function updateTimer() {
     timerEl.textContent = `Time left: ${timeLeft}s`;
     if (timeLeft <= 0) {
         clearInterval(timer);
-        feedbackEl.textContent = `Time's up! The answer was ${currentAnswer}.`;
+        // Enhanced feedback with explanation
+        const explanation = getExplanation();
+        feedbackEl.innerHTML = `⏰ <strong>Time's up!</strong><br><span style="color:#2d7be5;font-weight:600;">Answer: ${currentAnswer}</span><br><small style="color:#666;">${explanation}</small>`;
         playSound(false);
         score = Math.max(0, score - 1);
+        streak = 0;
         scoreEl.textContent = `Score: ${score}`;
         updateLeaderboard();
-        setTimeout(generateQuestion, 1500);
+        updateBadges();
+        setTimeout(generateQuestion, 3000);
     }
+}
+
+// Helper function to explain answers
+function getExplanation() {
+    const parts = questionEl.textContent.split(' ');
+    if (parts.length >= 3) {
+        const a = parseFloat(parts[0]);
+        const op = parts[1];
+        const b = parseFloat(parts[2]);
+        switch (op) {
+            case '+': return `${a} plus ${b} equals ${a + b}`;
+            case '-': return `${a} minus ${b} equals ${a - b}`;
+            case '×': return `${a} times ${b} equals ${a * b}`;
+            case '÷': return `${a} divided by ${b} equals ${(a / b).toFixed(2)}`;
+            case '^': return `${a} to the power of ${b} equals ${Math.pow(a, b)}`;
+            default: return 'Keep practicing to improve!';
+        }
+    }
+    return 'Keep practicing to improve!';
 }
 
 function submitAnswer() {
@@ -213,7 +255,7 @@ function submitAnswer() {
     if (userAnswer == currentAnswer) {
         score++;
         streak++;
-        feedbackEl.textContent = 'Correct!';
+        feedbackEl.innerHTML = `✅ <strong>Correct!</strong><br><small style="color:#2d7be5;">${getExplanation()}</small>`;
         playSound(true);
         if (score > highScore) {
             highScore = score;
@@ -231,7 +273,7 @@ function submitAnswer() {
             levelEl.textContent = `Level: ${level}`;
         }
     } else {
-        feedbackEl.textContent = `Wrong! The answer was ${currentAnswer}.`;
+        feedbackEl.innerHTML = `❌ <strong>Wrong!</strong><br><span style="color:#2d7be5;font-weight:600;">Answer: ${currentAnswer}</span><br><small style="color:#666;">${getExplanation()}</small>`;
         playSound(false);
         score = Math.max(0, score - 1);
         streak = 0;
@@ -239,8 +281,36 @@ function submitAnswer() {
     scoreEl.textContent = `Score: ${score}`;
     updateLeaderboard();
     updateBadges();
-    setTimeout(generateQuestion, 1500);
+    setTimeout(() => {
+        generateQuestion();
+        // Auto-focus on answer input for better UX
+        document.getElementById('answer').focus();
+    }, 1500);
 }
+
+// Keyboard controls
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        submitAnswer();
+    }
+}
+
+// Additional keyboard shortcuts
+document.addEventListener('keydown', function(event) {
+    // ESC to focus on answer input (quick restart)
+    if (event.key === 'Escape') {
+        event.preventDefault();
+        document.getElementById('answer').focus();
+        document.getElementById('answer').select();
+    }
+    // Space bar to focus on submit button
+    if (event.key === ' ' && event.target.tagName !== 'INPUT') {
+        event.preventDefault();
+        document.getElementById('submit-btn').focus();
+    }
+});
+
 typeSelect.addEventListener('change', function() {
     currentType = this.value;
     streak = 0;

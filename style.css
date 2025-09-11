@@ -72,11 +72,36 @@ button:hover {
     font-size: 1.1em;
     font-weight: 500;
     color: #e52d2d;
-    min-height: 24px;
-    transition: color 0.2s;
+    min-height: 60px;
+    transition: all 0.3s ease;
+    padding: 8px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.5);
 }
 .feedback:empty {
-    min-height: 24px;
+    min-height: 60px;
+    background: transparent;
+}
+.progress-container {
+    background: rgba(255,255,255,0.7);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.progress-bar {
+    position: relative;
+    overflow: hidden;
+}
+.progress-bar div {
+    transition: width 0.5s ease-in-out;
+}
+/* Pulsing animation for streaks */
+#streak-progress {
+    animation: pulse 1s infinite alternate;
+}
+@keyframes pulse {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; }
 }
 .timer {
     text-align: center;
