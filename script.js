@@ -1,22 +1,22 @@
 // Theme and avatar customization logic
 function applyTheme(theme) {
-    const body = document.body;
+    const root = document.documentElement;
     switch (theme) {
         case 'dark':
-            body.style.background = '#222';
-            body.style.color = '#eee';
+            root.style.setProperty('--primary-gradient', 'linear-gradient(135deg, #2c3e50 0%, #000000 100%)');
+            root.style.setProperty('--text-color', '#ffffff');
             break;
         case 'blue':
-            body.style.background = 'linear-gradient(135deg,#e3f2fd 0%,#90caf9 100%)';
-            body.style.color = '#1a237e';
+            root.style.setProperty('--primary-gradient', 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)');
+            root.style.setProperty('--text-color', '#ffffff');
             break;
         case 'green':
-            body.style.background = 'linear-gradient(135deg,#e8f5e9 0%,#66bb6a 100%)';
-            body.style.color = '#1b5e20';
+            root.style.setProperty('--primary-gradient', 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)');
+            root.style.setProperty('--text-color', '#ffffff');
             break;
         default:
-            body.style.background = 'linear-gradient(135deg,#e7f0fd 0%,#f7f7f7 100%)';
-            body.style.color = '';
+            root.style.setProperty('--primary-gradient', 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)');
+            root.style.setProperty('--text-color', '#ffffff');
     }
 }
 function applyAvatar(avatar) {
@@ -56,10 +56,15 @@ function showDailyChallenge() {
     const challenge = generateDailyChallenge();
     const el = document.getElementById('daily-challenge');
     if (completed) {
-        el.innerHTML = `<strong>✅ Daily Challenge Complete!</strong> <span style='color:#2d7be5;'>🏆</span>`;
+        el.innerHTML = `<strong>✅ Daily Challenge Complete!</strong> <span style='color:#ffd700;'>🏆</span>`;
         el.style.display = '';
     } else {
-        el.innerHTML = `<strong>${challenge.question}</strong><br><input type='number' id='daily-answer' style='margin:8px 0;padding:6px;border-radius:6px;border:1px solid #cfd8dc;width:80px;text-align:center;' placeholder='Answer' /> <button onclick='submitDailyChallenge()' style='padding:6px 16px;background:#2d7be5;color:#fff;border:none;border-radius:6px;cursor:pointer;'>Submit</button> <span id='daily-feedback' style='margin-left:8px;color:#e52d2d;'></span>`;
+        el.innerHTML = `<strong>${challenge.question}</strong><br>
+        <div style="display:flex; gap:10px; justify-content:center; margin-top:10px;">
+            <input type='number' id='daily-answer' placeholder='?' style='width:80px; margin:0;' /> 
+            <button onclick='submitDailyChallenge()' style='width:auto; padding:14px 24px;'>Submit</button>
+        </div>
+        <div id='daily-feedback' style='margin-top:8px; min-height:20px;'></div>`;
         el.style.display = '';
     }
 }
@@ -214,7 +219,7 @@ function updateTimer() {
         clearInterval(timer);
         // Enhanced feedback with explanation
         const explanation = getExplanation();
-        feedbackEl.innerHTML = `⏰ <strong>Time's up!</strong><br><span style="color:#2d7be5;font-weight:600;">Answer: ${currentAnswer}</span><br><small style="color:#666;">${explanation}</small>`;
+        feedbackEl.innerHTML = `⏰ <strong>Time's up!</strong><br><span style="color:var(--text-color);font-weight:600;">Answer: ${currentAnswer}</span><br><small style="color:var(--text-secondary);">${explanation}</small>`;
         playSound(false);
         score = Math.max(0, score - 1);
         streak = 0;
@@ -255,7 +260,7 @@ function submitAnswer() {
     if (userAnswer == currentAnswer) {
         score++;
         streak++;
-        feedbackEl.innerHTML = `✅ <strong>Correct!</strong><br><small style="color:#2d7be5;">${getExplanation()}</small>`;
+        feedbackEl.innerHTML = `✅ <strong>Correct!</strong><br><small style="color:var(--success-color);">${getExplanation()}</small>`;
         playSound(true);
         if (score > highScore) {
             highScore = score;
@@ -273,7 +278,7 @@ function submitAnswer() {
             levelEl.textContent = `Level: ${level}`;
         }
     } else {
-        feedbackEl.innerHTML = `❌ <strong>Wrong!</strong><br><span style="color:#2d7be5;font-weight:600;">Answer: ${currentAnswer}</span><br><small style="color:#666;">${getExplanation()}</small>`;
+        feedbackEl.innerHTML = `❌ <strong>Wrong!</strong><br><span style="color:var(--text-color);font-weight:600;">Answer: ${currentAnswer}</span><br><small style="color:var(--text-secondary);">${getExplanation()}</small>`;
         playSound(false);
         score = Math.max(0, score - 1);
         streak = 0;
