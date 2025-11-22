@@ -1,155 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login / Sign Up - Math Challenge</title>
     <link rel="icon" type="image/png" href="assets/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-    body {
-        min-height: 100vh;
-        background: linear-gradient(120deg, #e7f0fd 0%, #cfd8dc 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .auth-container {
-        background: rgba(255,255,255,0.85);
-        border-radius: 24px;
-        box-shadow: 0 8px 32px rgba(45,123,229,0.18);
-        padding: 40px 32px 32px 32px;
-        max-width: 370px;
-        margin: 0 auto;
-        backdrop-filter: blur(8px);
-        position: relative;
-    }
-    .auth-logo {
-        display: block;
-        margin: 0 auto 12px auto;
-        font-size: 2.8em;
-        text-align: center;
-        filter: drop-shadow(0 2px 8px #2d7be5);
-        animation: bounceLogo 1.2s infinite alternate;
-    }
-    @keyframes bounceLogo {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-10px) scale(1.08); }
-    }
-    #auth-title {
-        text-align:center;
-        color:#2d7be5;
-        font-size:1.5em;
-        margin-bottom:10px;
-        font-weight:700;
-        letter-spacing:1px;
-    }
-    #auth-action {
-        width:100%;
-        padding:14px;
-        background:linear-gradient(90deg,#2d7be5 60%,#4fc3f7 100%);
-        color:#fff;
-        border:none;
-        border-radius:12px;
-        font-size:1.1em;
-        font-weight:600;
-        cursor:pointer;
-        box-shadow:0 2px 8px rgba(45,123,229,0.10);
-        transition:background 0.2s, transform 0.2s;
-        margin-top:8px;
-        position:relative;
-        overflow:hidden;
-    }
-    .ripple {
-        position: absolute;
-        border-radius: 50%;
-        transform: scale(0);
-        animation: rippleEffect 0.5s linear;
-        background: rgba(79,195,247,0.3);
-        pointer-events: none;
-    }
-    @keyframes rippleEffect {
-        to {
-            transform: scale(4);
-            opacity: 0;
+        /* Inline styles moved to style.css or kept minimal for critical rendering if needed, 
+       but for this overhaul, we'll rely on the main style.css for consistency. 
+       Keeping specific auth styles here if they are unique to this page, 
+       but updating them to match the new design system. */
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            /* Vibrant gradient */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+            /* For background shapes */
+            position: relative;
         }
-    }
-    #auth-action:hover {
-        background:linear-gradient(90deg,#4fc3f7 60%,#2d7be5 100%);
-        transform: translateY(-2px) scale(1.03);
-    }
-    #auth-username, #auth-password {
-        width:100%;
-        padding:13px;
-        margin-bottom:14px;
-        border-radius:10px;
-        border:1px solid #cfd8dc;
-        font-size:1em;
-        background:rgba(255,255,255,0.95);
-        transition:border 0.2s;
-    }
-    #auth-username:focus, #auth-password:focus {
-        border:1.5px solid #2d7be5;
-        outline:none;
-        box-shadow: 0 0 0 4px rgba(45,123,229,0.15);
-    }
-    #auth-feedback {
-        text-align:center;
-        margin-top:12px;
-        color:#e52d2d;
-        font-size:1em;
-        min-height:1.2em;
-    }
-    #toggle-auth {
-        color:#2d7be5;
-        cursor:pointer;
-        text-decoration:underline;
-        font-size:1em;
-        font-weight:500;
-        margin-top:10px;
-        display:inline-block;
-    }
-    @media (max-width: 500px) {
+
+        /* Background Shapes */
+        .shape {
+            position: absolute;
+            filter: blur(50px);
+            z-index: -1;
+            animation: floatShape 20s infinite alternate;
+        }
+
+        .shape-1 {
+            top: -10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 105, 180, 0.4);
+            border-radius: 50%;
+        }
+
+        .shape-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(64, 224, 208, 0.4);
+            border-radius: 50%;
+            animation-delay: -5s;
+        }
+
+        @keyframes floatShape {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(50px, 50px) rotate(20deg);
+            }
+        }
+
         .auth-container {
-            padding: 24px 8px 18px 8px;
-            max-width: 98vw;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 48px 40px;
+            max-width: 400px;
+            width: 90%;
+            margin: 0 auto;
+            position: relative;
+            color: white;
         }
-        #auth-title { font-size:1.2em; }
-        .auth-logo { font-size:2em; }
-    }
+
+        .auth-logo {
+            display: block;
+            margin: 0 auto 20px auto;
+            font-size: 3.5em;
+            text-align: center;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+            animation: bounceLogo 2s infinite ease-in-out;
+        }
+
+        @keyframes bounceLogo {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        #auth-title {
+            text-align: center;
+            color: #fff;
+            font-size: 2em;
+            margin-bottom: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        input {
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        input:focus {
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        #auth-action {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #auth-action:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+            background: linear-gradient(135deg, #ff8e53 0%, #ff6b6b 100%);
+        }
+
+        #auth-action:active {
+            transform: translateY(-1px);
+        }
+
+        #auth-feedback {
+            text-align: center;
+            margin-top: 16px;
+            color: #ffcccb;
+            font-size: 1em;
+            min-height: 1.5em;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        #toggle-auth {
+            color: #fff;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: 10px;
+            display: inline-block;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        #toggle-auth:hover {
+            border-bottom-color: #fff;
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: rippleEffect 0.6s linear;
+            background: rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .auth-container {
+                padding: 32px 24px;
+                width: 85%;
+            }
+
+            #auth-title {
+                font-size: 1.8em;
+            }
+
+            .auth-logo {
+                font-size: 3em;
+            }
+        }
     </style>
 </head>
+
 <body>
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+
     <div class="auth-container">
         <span class="auth-logo">🧮</span>
-        <h2 id="auth-title">🔑 Login</h2>
-        <input type="text" id="auth-username" placeholder="Username" />
+        <h2 id="auth-title">Login</h2>
+        <input type="text" id="auth-username" placeholder="Username" autocomplete="off" />
         <input type="password" id="auth-password" placeholder="Password" />
         <button id="auth-action" onclick="authAction(event)">Login</button>
         <div id="auth-feedback"></div>
-        <div style="text-align:center;margin-top:18px;">
+        <div style="text-align:center;margin-top:20px;">
             <span id="toggle-auth" onclick="toggleAuthMode()">Don't have an account? Sign Up</span>
         </div>
     </div>
     <script src="login.js"></script>
     <script>
-    // Redirect to game after login
-    function showGameSection() {
-        window.location.href = 'home.html';
-    }
-    // Button ripple effect
-    document.getElementById('auth-action').addEventListener('click', function(e) {
-        const btn = e.currentTarget;
-        const ripple = document.createElement('span');
-        const rect = btn.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        ripple.className = 'ripple';
-        ripple.style.width = ripple.style.height = size + 'px';
-        ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
-        ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
-        btn.appendChild(ripple);
-        ripple.addEventListener('animationend', () => ripple.remove());
-    });
+        // Redirect to game after login
+        function showGameSection() {
+            window.location.href = 'home.html';
+        }
+        // Button ripple effect
+        document.getElementById('auth-action').addEventListener('click', function (e) {
+            const btn = e.currentTarget;
+            const ripple = document.createElement('span');
+            const rect = btn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.className = 'ripple';
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+            btn.appendChild(ripple);
+            ripple.addEventListener('animationend', () => ripple.remove());
+        });
     </script>
 </body>
+
 </html>
